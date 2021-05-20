@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var db = require('./db');
+const db = require('./db').sequelize; 
 var user = require('./controllers/usercontroller');
 var game = require('./controllers/gamecontroller')
 

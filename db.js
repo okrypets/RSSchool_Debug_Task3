@@ -1,9 +1,12 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
+var db = {};
 
 const sequelize = new Sequelize(process.env.DB, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
+    port: 5433,
     dialect: 'postgres',
+    logging: false
 })
 
 sequelize.authenticate().then(
@@ -16,4 +19,7 @@ sequelize.authenticate().then(
     }
 )
 
-module.exports = sequelize
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+module.exports = db;

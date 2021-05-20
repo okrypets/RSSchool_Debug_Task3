@@ -1,6 +1,5 @@
-const { Sequelize } = require('sequelize');
 const jwt = require('jsonwebtoken');
-const sequelize = require('../db'); 
+const { sequelize, Sequelize } = require('../db'); 
 var User = require('../models/user')(sequelize, Sequelize.DataTypes);
 
 module.exports = function (req, res, next) {

@@ -1,6 +1,5 @@
-const { Sequelize } = require('sequelize');
 var router = require('express').Router();
-const sequelize = require('../db'); 
+const { sequelize, Sequelize } = require('../db'); 
 var Game = require('../models/game')(sequelize, Sequelize.DataTypes); 
 
 router.get('/all', (req, res) => {
