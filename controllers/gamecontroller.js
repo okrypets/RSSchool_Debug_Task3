@@ -36,7 +36,7 @@ router.post('/create', async (req, res) => {
 try {
     const game = await Game.create({
         title: req.body.game.title,
-        owner_id: req.body.game.owner_id,
+        owner_id: req.body.user.id,
         studio: req.body.game.studio,
         esrb_rating: req.body.game.esrb_rating,
         user_rating: req.body.game.user_rating,
