@@ -81,27 +81,23 @@ router.put('/update/:id', async (req, res) => {
     }
 })
 
-router.delete('/remove/:id', (req, res) => {
-    Game.destroy({
+router.delete('/remove/:id', async (req, res) => {
+    try {
+    const game = await Game.destroy({
         where: {
             id: req.params.id,
-            owner_id: req.user.id
+            owner_id: req.body.user
         }
     })
-    .then(
-        function deleteSuccess(game) {
-            res.status(200).json({
-                game: game,
-                message: "Successfully deleted"
-            })
-        },
-
-        function deleteFail(err) {
-            res.status(500).json({
-                error: err.message
-            })
-        }
-    )
+    res.status(200).json({
+        game: game,
+        message: "Successfully deleted"
+    })
+    } catch {
+        res.status(500).json({
+            error: err.message
+        })
+    }
 })
 
 module.exports = router;
