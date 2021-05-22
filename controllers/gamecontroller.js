@@ -2,22 +2,21 @@ var router = require('express').Router();
 const { models } = require('../db'); 
 var Game = models.Game; 
 
-router.get('/all', (req, res) => {
-    Game.findAll({ where: { owner_id: req.user.id } })
-        .then(
-            function findSuccess(data) {
-                res.status(200).json({
-                    games: games,
-                    message: "Data fetched."
-                })
-            },
-
-            function findFail() {
-                res.status(500).json({
-                    message: "Data not found"
-                })
-            }
-        )
+router.get('/all', async (req, res) => {
+    try {
+        console.log(req.user.id)
+    const data = await Game.findAll({ where: { owner_id: req.user.id } })
+    if (data) {
+        res.status(200).json({
+            games: data.games,
+            message: "Data fetched."
+        })
+    }
+    } catch {
+        res.status(500).json({
+            message: "Data not found"
+        })
+    }
 })
 
 router.get('/:id', (req, res) => {
