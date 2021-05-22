@@ -37,27 +37,26 @@ router.get('/:id', (req, res) => {
         )
 })
 
-router.post('/create', (req, res) => {
-    Game.create({
+router.post('/create', async (req, res) => {
+    
+try {
+    const game = await Game.create({
         title: req.body.game.title,
-        owner_id: req.body.user.id,
+        owner_id: req.body.game.owner_id,
         studio: req.body.game.studio,
         esrb_rating: req.body.game.esrb_rating,
         user_rating: req.body.game.user_rating,
         have_played: req.body.game.have_played
     })
-        .then(
-            function createSuccess(game) {
-                res.status(200).json({
-                    game: game,
-                    message: "Game created."
-                })
-            },
-
-            function createFail(err) {
-                res.status(500).send(err.message)
-            }
-        )
+    if (game) {
+        res.status(200).json({
+            game: game,
+            message: "Game created."
+        })
+    }
+} catch (err) {
+    res.status(500).send(err.message)
+}
 })
 
 router.put('/update/:id', (req, res) => {
