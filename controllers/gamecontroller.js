@@ -1,6 +1,6 @@
-var router = require('express').Router();
+const router = require('express').Router();
 const { models } = require('../db'); 
-var Game = models.Game; 
+const Game = models.Game; 
 
 router.get('/all', async (req, res) => {
     try {

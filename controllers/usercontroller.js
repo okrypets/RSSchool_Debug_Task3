@@ -1,8 +1,8 @@
-var router = require('express').Router();
-var bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
+const router = require('express').Router();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { models }= require('../db'); 
-var User = models.User; 
+const User = models.User; 
 
 router.post('/signup', async (req, res) => {
     const password = await bcrypt.hashSync(req.body.user.password, 10)

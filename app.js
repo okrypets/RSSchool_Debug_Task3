@@ -1,9 +1,9 @@
-var http = require('http');
-var express = require('express');
-var app = express();
+const http = require('http');
+const express = require('express');
+const app = express();
 const { sequelize } = require('./db'); 
-var user = require('./controllers/usercontroller');
-var game = require('./controllers/gamecontroller')
+const user = require('./controllers/usercontroller');
+const game = require('./controllers/gamecontroller')
 
 const hostname = process.env.DB_HOST;
 const port = process.env.PORT;
