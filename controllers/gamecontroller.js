@@ -53,8 +53,9 @@ try {
 }
 })
 
-router.put('/update/:id', (req, res) => {
-    Game.update({
+router.put('/update/:id', async (req, res) => {
+    try {
+    const game = await Game.update({
         title: req.body.game.title,
         studio: req.body.game.studio,
         esrb_rating: req.body.game.esrb_rating,
@@ -64,24 +65,20 @@ router.put('/update/:id', (req, res) => {
         {
             where: {
                 id: req.params.id,
-                owner_id: req.user
+                owner_id: req.body.user
             }
+        });
+        if (game) {
+            res.status(200).json({
+                game: game,
+                message: "Successfully updated."
+            }) 
+        }
+    } catch {
+        res.status(500).json({
+            message: err.message
         })
-        .then(
-            function updateSuccess(game) {
-                res.status(200).json({
-                    game: game,
-                    message: "Successfully updated."
-                })
-            },
-
-            function updateFail(err) {
-                res.status(500).json({
-                    message: err.message
-                })
-            }
-
-        )
+    }
 })
 
 router.delete('/remove/:id', (req, res) => {
