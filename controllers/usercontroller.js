@@ -1,8 +1,7 @@
-const { Sequelize } = require('sequelize');
 var router = require('express').Router();
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
-const { sequelize, models }= require('../db'); 
+const { models }= require('../db'); 
 var User = models.User; 
 
 router.post('/signup', async (req, res) => {
