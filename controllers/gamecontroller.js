@@ -4,14 +4,11 @@ var Game = models.Game;
 
 router.get('/all', async (req, res) => {
     try {
-        console.log(req.user.id)
-    const data = await Game.findAll({ where: { owner_id: req.user.id } })
-    if (data) {
-        res.status(200).json({
-            games: data.games,
-            message: "Data fetched."
-        })
-    }
+    const games = await Game.findAll({ where: { owner_id: req.user.id } })
+    res.status(200).json({
+        games: games,
+        message: "Data fetched."
+    })
     } catch {
         res.status(500).json({
             message: "Data not found"
@@ -19,21 +16,19 @@ router.get('/all', async (req, res) => {
     }
 })
 
-router.get('/:id', (req, res) => {
-    Game.findOne({ where: { id: req.params.id, owner_id: req.user.id } })
-        .then(
-            function findSuccess(game) {
-                res.status(200).json({
-                    game: game
-                })
-            },
-
-            function findFail(err) {
-                res.status(500).json({
-                    message: "Data not found."
-                })
-            }
-        )
+router.get('/:id', async (req, res) => {
+    try {
+    const game = await Game.findOne({ where: { id: req.params.id, owner_id: req.user.id } })
+    if (game) {
+        res.status(200).json({
+            game: game
+        })
+    }
+    } catch {
+        res.status(500).json({
+            message: "Data not found."
+        })
+    }
 })
 
 router.post('/create', async (req, res) => {
