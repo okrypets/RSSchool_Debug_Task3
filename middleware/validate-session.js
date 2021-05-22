@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { sequelize, Sequelize } = require('../db'); 
-var User = require('../models/user')(sequelize, Sequelize.DataTypes);
+const { models } = require('../db'); 
+var User = models.User;
 
 module.exports = function (req, res, next) {
     if (req.method == 'OPTIONS') {

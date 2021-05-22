@@ -1,7 +1,7 @@
 var http = require('http');
 var express = require('express');
 var app = express();
-const db = require('./db').sequelize; 
+const { sequelize } = require('./db'); 
 var user = require('./controllers/usercontroller');
 var game = require('./controllers/gamecontroller')
 
@@ -15,7 +15,7 @@ http.createServer((req, res) => {
   res.end();
 })
 
-db.sync();
+sequelize.sync();
 
 app.use(express.urlencoded({
   extended: true
