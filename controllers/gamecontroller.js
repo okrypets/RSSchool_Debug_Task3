@@ -36,7 +36,7 @@ router.post('/create', async (req, res) => {
 try {
     const game = await Game.create({
         title: req.body.game.title,
-        owner_id: req.body.user.id,
+        owner_id: req.user.id,
         studio: req.body.game.studio,
         esrb_rating: req.body.game.esrb_rating,
         user_rating: req.body.game.user_rating,
@@ -65,7 +65,7 @@ router.put('/update/:id', async (req, res) => {
         {
             where: {
                 id: req.params.id,
-                owner_id: req.body.user
+                owner_id: req.user.id
             }
         });
         if (game) {
@@ -86,7 +86,7 @@ router.delete('/remove/:id', async (req, res) => {
     const game = await Game.destroy({
         where: {
             id: req.params.id,
-            owner_id: req.body.user
+            owner_id: req.user.id
         }
     })
     res.status(200).json({
